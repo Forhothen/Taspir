@@ -6,6 +6,15 @@
 # See: https://github.com/github/gitignore/tree/main/Global
 #
 .utmp/
+
+# Local IDE and macOS files
+.idea/
+.DS_Store
+
+# Incomplete nested Unity project (Library, Logs, Packages only).
+# The actual project lives at this repository's root.
+/Taspir/
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
