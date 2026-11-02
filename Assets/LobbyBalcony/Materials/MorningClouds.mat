@@ -25,9 +25,9 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Period: 70
+    - _Period: 32
     - _PreviewTime: -1
-    - _Sway: 0.006
+    - _Sway: 0.025
     m_Colors:
     - _CloudColor: {r: 1, g: 0.96999997, b: 0.9, a: 1}
     - _SkyHorizon: {r: 0.88, g: 0.86, b: 0.78999996, a: 1}

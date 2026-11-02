@@ -148,9 +148,9 @@ public static class LobbyBalconySceneBuilder
                 sky.SetFloat("_PreviewTime", 0);
                 light.SetFloat("_PreviewTime", 0);
                 Capture(output, QualitySettings.names[quality] + "-4x3", 1200, 900);
-                sky.SetFloat("_PreviewTime", 19);
-                light.SetFloat("_PreviewTime", 19);
-                Capture(output, QualitySettings.names[quality] + "-4x3-t19", 1200, 900);
+                sky.SetFloat("_PreviewTime", 5);
+                light.SetFloat("_PreviewTime", 5);
+                Capture(output, QualitySettings.names[quality] + "-4x3-t5", 1200, 900);
             }
             Capture(output, "wide-16x9", 1600, 900);
             Capture(output, "portrait-9x16", 675, 1200);

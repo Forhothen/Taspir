@@ -5,8 +5,8 @@ Shader "Taspir/Lobby/Morning Clouds"
         _SkyTop("Upper sky", Color) = (0.43, 0.64, 0.8, 1)
         _SkyHorizon("Morning haze", Color) = (0.88, 0.86, 0.79, 1)
         _CloudColor("Sunlit clouds", Color) = (1, 0.97, 0.9, 1)
-        _Sway("Sway in image UV", Range(0, 0.03)) = 0.006
-        _Period("Sway period (seconds)", Range(20, 160)) = 70
+        _Sway("Sway in image UV", Range(0, 0.06)) = 0.025
+        _Period("Sway period (seconds)", Range(10, 160)) = 32
         [HideInInspector] _PreviewTime("Preview time (-1 = realtime)", Float) = -1
     }
     SubShader

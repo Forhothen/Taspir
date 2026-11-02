@@ -22,9 +22,12 @@ MonoBehaviour:
   m_AdditionalPlatformBuildSettings: []
   m_OverrideGlobalSceneList: 1
   m_Scenes:
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/FirstPersonRoom.unity
     m_guid: 672a5b4c465ae4e3498b5e7e6441a043
+  - m_enabled: 1
+    m_path: Assets/Scenes/LobbyBalcony.unity
+    m_guid: 1527ef4ded9a84f6da38920f7b8ab06d
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
