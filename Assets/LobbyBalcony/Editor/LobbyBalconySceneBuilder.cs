@@ -158,6 +158,17 @@ public static class LobbyBalconySceneBuilder
             }
             Capture(output, "wide-16x9", 1600, 900);
             Capture(output, "portrait-9x16", 675, 1200);
+            if (curtain != null)
+            {
+                // Freeze the surroundings to inspect just the cloth's forward/back motion.
+                sky.SetFloat("_PreviewTime", 0);
+                light.SetFloat("_PreviewTime", 0);
+                for (int frame = 0; frame < 4; frame++)
+                {
+                    curtain.SetFloat("_PreviewTime", frame * curtain.GetFloat("_Period") * 0.25f);
+                    Capture(output, "tulle-wind-" + frame, 1200, 900);
+                }
+            }
             foreach (string name in new[] { "BalconyUnlit", "MorningClouds", "MorningLight", "Curtain" })
             {
                 var shader = AssetDatabase.LoadAssetAtPath<Shader>(Root + "Shaders/" + name + ".shader");

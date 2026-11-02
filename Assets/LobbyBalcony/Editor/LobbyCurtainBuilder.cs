@@ -4,7 +4,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-/// <summary>Adds two perspective-fitted fabric panels without rebuilding the lobby.</summary>
+/// <summary>Fits continuous sheer tulle to the ceiling rail and windowsill without rebuilding the lobby.</summary>
 public static class LobbyCurtainBuilder
 {
     private const string Root = "Assets/LobbyBalcony/";
@@ -22,22 +22,7 @@ public static class LobbyCurtainBuilder
         AssetDatabase.Refresh();
         var scene = EditorSceneManager.OpenScene(LobbyBalconySceneBuilder.ScenePath);
         foreach (var root in scene.GetRootGameObjects())
-            if (root.name == GroupName)
-            {
-                Debug.Log("Curtains already exist; keeping the current panels and material.");
-                return;
-            }
-        const string texturePath = Root + "Textures/CurtainPlaceholder.png";
-        var importer = (TextureImporter)AssetImporter.GetAtPath(texturePath);
-        importer.textureType = TextureImporterType.Default;
-        importer.alphaSource = TextureImporterAlphaSource.FromInput;
-        importer.alphaIsTransparency = true;
-        importer.sRGBTexture = true;
-        importer.npotScale = TextureImporterNPOTScale.None;
-        importer.mipmapEnabled = false;
-        importer.wrapMode = TextureWrapMode.Clamp;
-        importer.textureCompression = TextureImporterCompression.Uncompressed;
-        importer.SaveAndReimport();
+            if (root.name == GroupName) UnityEngine.Object.DestroyImmediate(root);
         string materialPath = Root + "Materials/Curtain.mat";
         var material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
         if (material == null)
@@ -46,17 +31,18 @@ public static class LobbyCurtainBuilder
             if (shader == null || ShaderUtil.ShaderHasError(shader))
                 throw new InvalidOperationException("Curtain shader failed to compile.");
             material = new Material(shader) { name = "Curtain" };
-            material.SetTexture("_BaseMap", AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath));
             AssetDatabase.CreateAsset(material, materialPath);
         }
+        material.SetTexture("_BaseMap", null);
+        material.SetVector("_TextureRect", new Vector4(0, 0, 1, 1));
+        material.SetColor("_Tint", new Color(1f, 0.97f, 0.9f, 0.3f));
+        material.SetFloat("_Amplitude", 0.22f);
+        material.SetFloat("_Period", 6.5f);
+        EditorUtility.SetDirty(material);
         var group = new GameObject(GroupName);
-        // Image coordinates: origin bottom-left. The near window top is above the crop.
-        Panel(group.transform, material, "Near left curtain", false,
-            new Vector2(-0.035f, 1.34f), new Vector2(0.19f, 1.155f),
-            new Vector2(-0.035f, -0.25f), new Vector2(0.19f, -0.08f), 1, 0);
-        Panel(group.transform, material, "Far right curtain", true,
-            new Vector2(0.49f, 0.91f), new Vector2(0.61f, 0.81f),
-            new Vector2(0.49f, 0.10f), new Vector2(0.61f, 0.19f), 0.5f, 1.4f);
+        Panel(group.transform, material, "Continuous sheer tulle - ceiling to sill", false,
+            new Vector2(-0.015f, 1.337f), new Vector2(0.601f, 0.827f),
+            new Vector2(-0.015f, 0.472f), new Vector2(0.614f, 0.527f), 1, 0);
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
     }
@@ -65,7 +51,7 @@ public static class LobbyCurtainBuilder
         Vector2 topLeft, Vector2 topRight, Vector2 bottomLeft, Vector2 bottomRight,
         float perspectiveScale, float phase)
     {
-        const int columns = 20, rows = 32;
+        const int columns = 72, rows = 24;
         var vertices = new Vector3[(columns + 1) * (rows + 1)];
         var uv = new Vector2[vertices.Length];
         var motion = new Vector2[vertices.Length];
@@ -78,7 +64,9 @@ public static class LobbyCurtainBuilder
                 Vector2.Lerp(topLeft, topRight, u), v);
             int i = y * (columns + 1) + x;
             vertices[i] = new Vector3((point.x - 0.5f) * (40f / 3f), (point.y - 0.5f) * 10, 0);
-            uv[i] = new Vector2(flip ? 1 - u : u, v);
+            // Perspective compresses the folds toward the far end of the window.
+            float fabricU = -Mathf.Log(1 - 0.67f * u) / -Mathf.Log(0.33f);
+            uv[i] = new Vector2(fabricU, v);
             motion[i] = new Vector2(perspectiveScale, phase);
             if (x == columns || y == rows) continue;
             int t = (y * columns + x) * 6;
@@ -89,14 +77,14 @@ public static class LobbyCurtainBuilder
             triangles[t + 4] = i + columns + 1;
             triangles[t + 5] = i + columns + 2;
         }
-        var mesh = new Mesh { name = flip ? "FarCurtain" : "NearCurtain", vertices = vertices, uv = uv, uv2 = motion, triangles = triangles };
+        var mesh = new Mesh { name = "Tulle", vertices = vertices, uv = uv, uv2 = motion, triangles = triangles };
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         // Include shader displacement in CPU culling bounds.
         var bounds = mesh.bounds;
         bounds.Expand(0.7f);
         mesh.bounds = bounds;
-        string meshPath = Root + "Meshes/" + (flip ? "FarCurtain.asset" : "NearCurtain.asset");
+        string meshPath = Root + "Meshes/" + "Tulle.asset";
         if (!AssetDatabase.IsValidFolder(Root + "Meshes")) AssetDatabase.CreateFolder(Root.TrimEnd('/'), "Meshes");
         var existing = AssetDatabase.LoadAssetAtPath<Mesh>(meshPath);
         if (existing == null) AssetDatabase.CreateAsset(mesh, meshPath);

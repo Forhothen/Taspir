@@ -10,7 +10,8 @@ License: Pixabay Content License.
 License summary: https://pixabay.com/service/license-summary/
 Full terms: https://pixabay.com/service/terms/
 
-Used as an integrated, animated placeholder inside the lobby, not as a standalone
-stock asset for redistribution. The material crops the transparent margins and
-tints the fabric; the original downloaded file is unchanged. Replace this asset
-with original art for the final game. Attribution is kept here for traceability.
+Previously used as an integrated, animated placeholder inside the lobby.
+Currently unused: the lobby now uses continuous procedural sheer tulle, ending
+at the windowsill. The original downloaded file is unchanged and retained as
+a reference, not as a standalone stock asset for redistribution.
+Attribution is kept here for traceability.
