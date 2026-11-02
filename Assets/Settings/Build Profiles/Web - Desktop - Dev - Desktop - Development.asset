@@ -20,8 +20,11 @@ MonoBehaviour:
     rid: 6890533240927420416
   m_ActivePlatformGuid: 
   m_AdditionalPlatformBuildSettings: []
-  m_OverrideGlobalSceneList: 0
-  m_Scenes: []
+  m_OverrideGlobalSceneList: 1
+  m_Scenes:
+  - m_enabled: 1
+    m_path: Assets/Scenes/FirstPersonRoom.unity
+    m_guid: 672a5b4c465ae4e3498b5e7e6441a043
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
