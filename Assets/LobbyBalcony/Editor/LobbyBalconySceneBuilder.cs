@@ -92,6 +92,7 @@ public static class LobbyBalconySceneBuilder
 
         EditorSceneManager.SaveScene(scene, ScenePath);
         AssetDatabase.SaveAssets();
+        if (File.Exists(Root + "Textures/CurtainPlaceholder.png")) LobbyCurtainBuilder.AddToScene();
         Debug.Log("Taspir: saved " + ScenePath + ". Startup scene and render settings are unchanged.");
     }
 
@@ -140,6 +141,7 @@ public static class LobbyBalconySceneBuilder
         int originalQuality = QualitySettings.GetQualityLevel();
         var sky = AssetDatabase.LoadAssetAtPath<Material>(Root + "Materials/MorningClouds.mat");
         var light = AssetDatabase.LoadAssetAtPath<Material>(Root + "Materials/MorningLight.mat");
+        var curtain = AssetDatabase.LoadAssetAtPath<Material>(Root + "Materials/Curtain.mat");
         try
         {
             for (int quality = 0; quality < QualitySettings.names.Length; quality++)
@@ -147,16 +149,19 @@ public static class LobbyBalconySceneBuilder
                 QualitySettings.SetQualityLevel(quality, true);
                 sky.SetFloat("_PreviewTime", 0);
                 light.SetFloat("_PreviewTime", 0);
+                if (curtain != null) curtain.SetFloat("_PreviewTime", 0);
                 Capture(output, QualitySettings.names[quality] + "-4x3", 1200, 900);
                 sky.SetFloat("_PreviewTime", 5);
                 light.SetFloat("_PreviewTime", 5);
+                if (curtain != null) curtain.SetFloat("_PreviewTime", 5);
                 Capture(output, QualitySettings.names[quality] + "-4x3-t5", 1200, 900);
             }
             Capture(output, "wide-16x9", 1600, 900);
             Capture(output, "portrait-9x16", 675, 1200);
-            foreach (string name in new[] { "BalconyUnlit", "MorningClouds", "MorningLight" })
+            foreach (string name in new[] { "BalconyUnlit", "MorningClouds", "MorningLight", "Curtain" })
             {
                 var shader = AssetDatabase.LoadAssetAtPath<Shader>(Root + "Shaders/" + name + ".shader");
+                if (shader == null) continue;
                 foreach (var message in ShaderUtil.GetShaderMessages(shader))
                 {
                     if (message.severity == UnityEditor.Rendering.ShaderCompilerMessageSeverity.Error)
@@ -169,6 +174,11 @@ public static class LobbyBalconySceneBuilder
         {
             sky.SetFloat("_PreviewTime", -1);
             light.SetFloat("_PreviewTime", -1);
+            if (curtain != null)
+            {
+                curtain.SetFloat("_PreviewTime", -1);
+                EditorUtility.SetDirty(curtain);
+            }
             QualitySettings.SetQualityLevel(originalQuality, true);
             EditorUtility.SetDirty(sky);
             EditorUtility.SetDirty(light);

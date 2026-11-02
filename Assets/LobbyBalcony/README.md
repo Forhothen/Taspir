@@ -29,6 +29,25 @@
 - `Lobby Camera` — ортографическая камера с `LobbyCameraFit`, который сохраняет
   композицию при изменении размеров окна. Постобработка и HDR отключены только
   у этой камеры, чтобы не менять цвета исходного изображения.
+- `Curtains - replaceable placeholder` — две светлые занавеси на отдельных сетках.
+  Ближняя слева больше и продолжается за границами кадра; дальняя справа уже,
+  её верх повторяет наклон оконной рамы. Верхние вершины закреплены, ткань
+  постепенно изгибается к подолу. Дальняя штора движется слабее и с другой фазой.
+  Анимация в шейдере, без Cloth, костей и дополнительных пакетов.
+
+## Замена и настройка штор
+
+В `Materials/Curtain.mat` замени `Replaceable curtain PNG` на новую текстуру
+с прозрачным фоном. Для изображения без пустых полей установи `Texture crop`
+в `(0, 0, 1, 1)`; текущие значения вырезают лишние поля временного PNG.
+Один материал используется для обеих занавесей, правая отражена по горизонтали.
+Сохраняй вертикальную ориентацию: крепление сверху, подол снизу.
+`Fabric tint` задаёт оттенок и прозрачность, `Hem sway` — амплитуду (0.13 ед.),
+`Sway period` — период (9 секунд). Картинка временная; сведения об авторе,
+источнике и лицензии находятся в `Textures/SOURCE.md`.
+Это художественная 2.5D-подгонка под конкретный фон, без физического контакта
+ткани со столом и без динамических теней от штор. Новый рисунок сильно другой
+формы может потребовать подгонки сеток; простой замены PNG для этого недостаточно.
 
 В `Materials/MorningClouds.mat` доступны цвета, `Sway in image UV` и
 `Sway period (seconds)` (по умолчанию 32 секунды, амплитуда 0.025 UV).
@@ -53,10 +72,15 @@
 - `Assets/LobbyBalcony/Materials/Balcony.mat`;
 - `Assets/LobbyBalcony/Materials/MorningClouds.mat`;
 - `Assets/LobbyBalcony/Materials/MorningLight.mat`;
+- `Assets/LobbyBalcony/Materials/Curtain.mat`;
+- `Assets/LobbyBalcony/Shaders/Curtain.shader`;
+- `Assets/LobbyBalcony/Editor/LobbyCurtainBuilder.cs`;
+- `Assets/LobbyBalcony/Meshes/NearCurtain.asset` и `FarCurtain.asset`;
+- `Assets/LobbyBalcony/Textures/CurtainPlaceholder.png` и `SOURCE.md`;
 - `Assets/LobbyBalcony/README.md`;
 - метаданные папок и `taspir_balcony_morning_transparent_1980px.png.meta`.
 
-Ранее существовавшие файлы проекта и сам PNG не изменялись.
+Исходный PNG балкона не изменялся; при добавлении штор обновлена сцена лобби.
 
 ## Проверка
 
