@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4986469061483245759
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 15009, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Graphics Settings
+  m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.Build.Profile.BuildProfileGraphicsSettings
+  m_LightmapStripping: 0
+  m_LightmapKeepPlain: 1
+  m_LightmapKeepDirCombined: 1
+  m_LightmapKeepDynamicPlain: 1
+  m_LightmapKeepDynamicDirCombined: 1
+  m_LightmapKeepShadowMask: 1
+  m_LightmapKeepSubtractive: 1
+  m_FogStripping: 0
+  m_FogKeepLinear: 1
+  m_FogKeepExp: 1
+  m_FogKeepExp2: 1
+  m_InstancingStripping: 0
+  m_BrgStripping: 0
+  m_LogWhenShaderIsCompiled: 0
+  m_CameraRelativeLightCulling: 0
+  m_CameraRelativeShadowCulling: 0
+  m_VideoShadersIncludeMode: 2
+  m_AlwaysIncludedShaders: []
+  m_LightProbeOutsideHullStrategy: 0
+  m_GraphicsStateCollection: {fileID: 0}
+  m_CollectionStartupAction: 0
+  m_TraceSavePath: TracedCollection
+  m_TraceSendToEditor: 1
+  m_AdditionalWarmupCollections: []
+  m_WarmupAsync: 1
+  m_WarmupProgressivelyLimit: -1
+  m_EnableCacheMissTracing: 0
+  m_CacheMissCollectionPath: CacheMissCollection
+  m_PreloadedShaders: []
+  m_PreloadShadersBatchTimeLimit: -1
+  m_ShaderBuildSettings:
+    keywordDeclarationOverrides: []
+    defines: []
+    numInternalDefines: 0
+    compilerSettings: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22,11 +69,8 @@ MonoBehaviour:
   m_AdditionalPlatformBuildSettings: []
   m_OverrideGlobalSceneList: 1
   m_Scenes:
-  - m_enabled: 0
-    m_path: Assets/Scenes/FirstPersonRoom.unity
-    m_guid: 672a5b4c465ae4e3498b5e7e6441a043
   - m_enabled: 1
-    m_path: Assets/Scenes/LobbyBalcony.unity
+    m_path: Assets/LobbyBalcony/Scenes/LobbyBalcony.unity
     m_guid: 1527ef4ded9a84f6da38920f7b8ab06d
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
@@ -295,7 +339,7 @@ MonoBehaviour:
     - line: '|   shaderPrecisionModel: 0'
     - line: '|   clonedFromGUID: 3c72c65a16f0acb438eed22b8b16c24a'
     - line: '|   templatePackageId: com.unity.template.urp-blank@17.2.6'
-    - line: '|   templateDefaultScene: Assets/Scenes/SampleScene.unity'
+    - line: '|   templateDefaultScene: Assets/LobbyBalcony/Scenes/LobbyBalcony.unity'
     - line: '|   useCustomMainManifest: 0'
     - line: '|   useCustomLauncherManifest: 0'
     - line: '|   useCustomMainGradleTemplate: 0'
@@ -971,8 +1015,22 @@ MonoBehaviour:
         m_InstallInBuildFolder: 0
         m_InsightsSettingsContainer:
           m_BuildProfileEngineDiagnosticsState: 2
-        m_AdaptivePerformanceEnabled: 0
+        m_AdaptivePerformanceEnabled: 1
         m_CodeOptimization: 0
         m_WebGLClientBrowserPath: 
         m_WebGLClientBrowserType: 0
         m_WebGLTextureSubtarget: 1
+--- !u!114 &2039826337309975769
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 15010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Quality Settings
+  m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.Build.Profile.BuildProfileQualitySettings
+  m_DefaultQualityLevel:
+  m_QualityLevels: []

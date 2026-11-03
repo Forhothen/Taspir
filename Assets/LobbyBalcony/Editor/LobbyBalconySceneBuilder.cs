@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 /// <summary>Editor authoring helper; the saved scene has no dependency on this builder.</summary>
 public static class LobbyBalconySceneBuilder
 {
-    public const string ScenePath = "Assets/Scenes/LobbyBalcony.unity";
+    public const string ScenePath = "Assets/LobbyBalcony/Scenes/LobbyBalcony.unity";
     private const string Root = "Assets/LobbyBalcony/";
     private const string ImagePath = Root + "taspir_balcony_morning_transparent_1980px.png";
     private const float Width = 40f / 3f;
