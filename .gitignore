@@ -11,6 +11,10 @@
 .idea/
 .DS_Store
 
+# React application
+/web/node_modules/
+/web/dist/
+
 # Incomplete nested Unity project (Library, Logs, Packages only).
 # The actual project lives at this repository's root.
 /Taspir/
